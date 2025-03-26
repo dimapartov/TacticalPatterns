@@ -17,7 +17,7 @@ public class Shift {
     }
 
     public boolean overlapsWith(Shift other) {
-        return !this.end.isBefore(other.start) && !this.start.isAfter(other.end);
+        return this.start.isBefore(other.end) && other.start.isBefore(this.end);
     }
 
     public boolean isOnDate(LocalDateTime date) {
