@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+
 /**
  * Сущность «Сообщение» в заявке.
  * Содержит информацию о содержимом, отправителе, вложениях и статусе подтверждения.
@@ -12,6 +13,7 @@ import java.util.Objects;
  * Вложения добавляются только на этапе создания сообщения.
  */
 public class Message {
+
     private final String id;
     private final UserRole sender;
     private final String content;
@@ -20,9 +22,10 @@ public class Message {
 
     /**
      * Создание сообщения с вложениями.
-     * @param id Идентификатор сообщения.
-     * @param sender Роль отправителя.
-     * @param content Содержимое сообщения.
+     *
+     * @param id          Идентификатор сообщения.
+     * @param sender      Роль отправителя.
+     * @param content     Содержимое сообщения.
      * @param attachments Список вложений (если их нет, передать пустой список).
      */
     public Message(String id, UserRole sender, String content, List<Attachment> attachments) {
@@ -69,6 +72,7 @@ public class Message {
     /**
      * Подтверждение сообщения. Метод проверяет, что подтверждение происходит
      * только от противоположной стороны (отличной от отправителя).
+     *
      * @param confirmer Роль, пытающаяся подтвердить сообщение.
      */
     public void confirmMessage(UserRole confirmer) {
@@ -102,4 +106,5 @@ public class Message {
     public String toString() {
         return "Message{id='" + id + "', sender=" + sender + ", content='" + content + "', attachments=" + attachments + ", confirmed=" + isConfirmed + "}";
     }
+
 }

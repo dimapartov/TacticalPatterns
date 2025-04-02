@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class DriverRepository {
+
     private final Map<Integer, Driver> storage = new HashMap<>();
 
     public void save(Driver driver) {
@@ -21,4 +23,5 @@ public class DriverRepository {
     public List<Driver> findAll() {
         return new ArrayList<>(storage.values());
     }
+
 }

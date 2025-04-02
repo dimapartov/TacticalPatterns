@@ -2,11 +2,13 @@ package org.example.logitrack.Domain;
 
 import java.util.Objects;
 
+
 /**
  * Сущность «Вложение».
  * Вложение может быть добавлено только вместе с новым сообщением.
  */
 public class Attachment {
+
     private final String id;
     private final String fileName;
 
@@ -43,4 +45,5 @@ public class Attachment {
     public String toString() {
         return "Attachment{id='" + id + "', fileName='" + fileName + "'}";
     }
+
 }

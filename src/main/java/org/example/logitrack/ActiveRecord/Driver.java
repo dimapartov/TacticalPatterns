@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Driver {
+
     private final int id;
     private final String fullName;
     private boolean isActive;
@@ -65,4 +67,5 @@ public class Driver {
     public String toString() {
         return "Driver{id=" + id + ", fullName='" + fullName + "', isActive=" + isActive + "}";
     }
+
 }

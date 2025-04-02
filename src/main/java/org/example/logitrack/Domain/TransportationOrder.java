@@ -7,12 +7,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+
 /**
  * Агрегат TransportationOrder (Заявка на перевозку) – корень агрегата.
  * Инкапсулирует всю бизнес-логику, связанную с жизненным циклом заявки.
  * Содержит список сообщений, информацию о маршруте доставки, статус заявки и время последней активности.
  */
 public class TransportationOrder {
+
     private final String id;
     private OrderStatus orderStatus;
     private DeliveryRoute deliveryRoute;
@@ -111,4 +113,5 @@ public class TransportationOrder {
     public String toString() {
         return "TransportationOrder{id='" + id + "', status=" + orderStatus + ", deliveryRoute=" + deliveryRoute + ", messages=" + messages + "}";
     }
+
 }

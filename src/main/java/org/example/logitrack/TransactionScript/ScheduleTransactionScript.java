@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+
 public class ScheduleTransactionScript {
 
     // Форматтер для красивого отображения даты
@@ -54,4 +55,5 @@ public class ScheduleTransactionScript {
         System.out.println("Проверка доступности водителя на момент: " + dateTime.format(formatter));
         return driver.isAvailableAt(dateTime);
     }
+
 }

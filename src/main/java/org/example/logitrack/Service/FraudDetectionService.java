@@ -7,6 +7,7 @@ import org.example.logitrack.Domain.UserRole;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Доменный сервис для обнаружения мошенничества.
  * Эмуляция проверки: если от одной стороны поступает более 3 сообщений,
@@ -16,6 +17,7 @@ public class FraudDetectionService {
 
     /**
      * Проверяет заявку на подозрительную активность.
+     *
      * @return true, если подозрение на мошенничество обнаружено, иначе false.
      */
     public boolean checkForFraud(TransportationOrder order) {
@@ -35,4 +37,5 @@ public class FraudDetectionService {
         System.out.println("No fraud detected for order " + order.getId());
         return false;
     }
+
 }

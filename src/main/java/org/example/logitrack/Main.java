@@ -5,13 +5,13 @@ import org.example.logitrack.Domain.DeliveryRoute;
 import org.example.logitrack.Domain.Message;
 import org.example.logitrack.Domain.TransportationOrder;
 import org.example.logitrack.Domain.UserRole;
-import org.example.logitrack.Repository.InMemoryTransportationOrderRepository;
 import org.example.logitrack.Repository.TransportationOrderRepository;
 import org.example.logitrack.Service.FraudDetectionService;
 import org.example.logitrack.Service.OrderLifecycleService;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Демонстрация работы системы LogiTrack.
@@ -71,7 +71,7 @@ public class Main {
     // Демонстрация второй части
     public static void main(String[] args) throws InterruptedException {
         // Создаем in-memory репозиторий и доменный сервис для управления заявками
-        TransportationOrderRepository repository = new InMemoryTransportationOrderRepository();
+        TransportationOrderRepository repository = new TransportationOrderRepository();
         OrderLifecycleService lifecycleService = new OrderLifecycleService(repository);
         FraudDetectionService fraudService = new FraudDetectionService();
 
@@ -124,4 +124,5 @@ public class Main {
         // Повторная проверка на мошенничество после добавления сообщений
         fraudService.checkForFraud(order);
     }
+
 }

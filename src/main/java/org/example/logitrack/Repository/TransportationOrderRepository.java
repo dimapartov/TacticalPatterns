@@ -2,13 +2,30 @@ package org.example.logitrack.Repository;
 
 import org.example.logitrack.Domain.TransportationOrder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
- * Интерфейс репозитория для хранения и получения агрегатов TransportationOrder.
+ * In-memory реализация репозитория для агрегатов TransportationOrder.
  */
-public interface TransportationOrderRepository {
-    void save(TransportationOrder order);
-    TransportationOrder findById(String id);
-    List<TransportationOrder> findAll();
+public class TransportationOrderRepository {
+
+    private final Map<String, TransportationOrder> storage = new HashMap<>();
+
+    public void save(TransportationOrder order) {
+        storage.put(order.getId(), order);
+        System.out.println("Order saved: " + order.getId());
+    }
+
+    public TransportationOrder findById(String id) {
+        return storage.get(id);
+    }
+
+    public List<TransportationOrder> findAll() {
+        return new ArrayList<>(storage.values());
+    }
+
 }

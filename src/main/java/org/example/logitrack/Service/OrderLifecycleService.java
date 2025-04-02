@@ -4,11 +4,13 @@ import org.example.logitrack.Domain.DeliveryRoute;
 import org.example.logitrack.Domain.TransportationOrder;
 import org.example.logitrack.Repository.TransportationOrderRepository;
 
+
 /**
  * Доменный сервис для управления жизненным циклом заявки.
  * Реализует операции создания, изменения статуса, закрытия и переоткрытия заявки.
  */
 public class OrderLifecycleService {
+
     private final TransportationOrderRepository repository;
 
     public OrderLifecycleService(TransportationOrderRepository repository) {
@@ -75,4 +77,5 @@ public class OrderLifecycleService {
         order.checkAndCloseIfInactive();
         repository.save(order);
     }
+
 }

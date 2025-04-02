@@ -2,11 +2,13 @@ package org.example.logitrack.Domain;
 
 import java.util.Objects;
 
+
 /**
  * Значение-объект для маршрута доставки.
  * Представляет начальную и конечную точки маршрута.
  */
 public final class DeliveryRoute {
+
     private final String origin;
     private final String destination;
 
@@ -43,4 +45,5 @@ public final class DeliveryRoute {
     public String toString() {
         return "Route from " + origin + " to " + destination;
     }
+
 }
