@@ -1,8 +1,8 @@
-package org.example.TransactionScript;
+package org.example.logitrack.TransactionScript;
 
-import org.example.ActiveRecord.Driver;
-import org.example.ActiveRecord.DriverRepository;
-import org.example.ActiveRecord.Shift;
+import org.example.logitrack.ActiveRecord.Driver;
+import org.example.logitrack.ActiveRecord.DriverRepository;
+import org.example.logitrack.ActiveRecord.Shift;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

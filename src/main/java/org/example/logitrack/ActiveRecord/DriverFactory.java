@@ -1,4 +1,4 @@
-package org.example.ActiveRecord;
+package org.example.logitrack.ActiveRecord;
 
 
 public class DriverFactory {

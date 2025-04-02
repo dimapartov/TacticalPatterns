@@ -1,4 +1,4 @@
-package org.example.ActiveRecord;
+package org.example.logitrack.ActiveRecord;
 
 
 import java.util.ArrayList;
