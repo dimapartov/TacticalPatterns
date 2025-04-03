@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 
-/**
- * Агрегат TransportationOrder (Заявка на перевозку) – корень агрегата.
- * Инкапсулирует всю бизнес-логику, связанную с жизненным циклом заявки.
- * Содержит список сообщений, информацию о маршруте доставки, статус заявки и время последней активности.
- */
 public class TransportationOrder {
 
     private final String id;
@@ -21,13 +16,10 @@ public class TransportationOrder {
     private final List<Message> messages;
     private LocalDateTime lastActivityTime;
 
-    /**
-     * Конструктор для создания новой заявки с заданным маршрутом доставки.
-     * При создании заявка получает статус ACTIVE и устанавливается время последней активности.
-     */
+
     public TransportationOrder(DeliveryRoute deliveryRoute) {
         if (deliveryRoute == null) {
-            throw new IllegalArgumentException("DeliveryRoute cannot be null");
+            throw new IllegalArgumentException("Маршрут не найден");
         }
         this.id = UUID.randomUUID().toString();
         this.deliveryRoute = deliveryRoute;
@@ -56,54 +48,41 @@ public class TransportationOrder {
         return lastActivityTime;
     }
 
-    /**
-     * Добавляет сообщение в заявку.
-     * Инвариант: сообщение может быть добавлено только к активной заявке.
-     * После добавления обновляется время последней активности.
-     */
+
     public void addMessage(Message message) {
         if (!orderStatus.isActive()) {
-            throw new IllegalStateException("Cannot add message to a closed order");
+            throw new IllegalStateException("Невозможно добавить сообщение. Заявка неактивна");
         }
         if (message == null) {
-            throw new IllegalArgumentException("Message cannot be null");
+            throw new IllegalArgumentException("Сообщение не может быть пустым");
         }
         messages.add(message);
         updateActivity();
-        System.out.println("Message added: " + message);
+        System.out.println("Сообщение добавлено: " + message);
     }
 
-    /**
-     * Обновляет время последней активности заявки.
-     */
+
     public void updateActivity() {
         lastActivityTime = LocalDateTime.now();
     }
 
-    /**
-     * Проверяет, прошло ли с последней активности более 10 минут.
-     * Если да, то заявка автоматически закрывается.
-     */
+
     public void checkAndCloseIfInactive() {
         if (orderStatus.isActive() && Duration.between(lastActivityTime, LocalDateTime.now()).toMinutes() >= 10) {
             close();
-            System.out.println("Order " + id + " automatically closed due to inactivity.");
+            System.out.println("Заявка " + id + " неактивна. Автоматическое закрытие заявки");
         }
     }
 
-    /**
-     * Метод для ручного закрытия заявки.
-     */
+
     public void close() {
         this.orderStatus = new OrderStatus(OrderStatus.Status.CLOSED);
     }
 
-    /**
-     * Метод для переоткрытия закрытой заявки.
-     */
+
     public void reopen() {
         if (orderStatus.isActive()) {
-            throw new IllegalStateException("Order is already active");
+            throw new IllegalStateException("Заявка уже активна");
         }
         this.orderStatus = new OrderStatus(OrderStatus.Status.ACTIVE);
         updateActivity();
@@ -111,7 +90,13 @@ public class TransportationOrder {
 
     @Override
     public String toString() {
-        return "TransportationOrder{id='" + id + "', status=" + orderStatus + ", deliveryRoute=" + deliveryRoute + ", messages=" + messages + "}";
+        return "TransportationOrder{" +
+                "id='" + id + '\'' +
+                ", orderStatus=" + orderStatus +
+                ", deliveryRoute=" + deliveryRoute +
+                ", messages=" + messages +
+                ", lastActivityTime=" + lastActivityTime +
+                '}';
     }
 
 }

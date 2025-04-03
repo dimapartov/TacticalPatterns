@@ -3,10 +3,7 @@ package org.example.logitrack.Domain;
 import java.util.Objects;
 
 
-/**
- * Значение-объект для статуса заявки.
- * Обеспечивает инвариант неизменности после создания.
- */
+
 public final class OrderStatus {
 
     public enum Status {
@@ -24,9 +21,7 @@ public final class OrderStatus {
         return status;
     }
 
-    /**
-     * Проверяет, активна ли заявка.
-     */
+
     public boolean isActive() {
         return status == Status.ACTIVE;
     }
@@ -44,9 +39,12 @@ public final class OrderStatus {
         return Objects.hash(status);
     }
 
+
     @Override
     public String toString() {
-        return status.name();
+        return "OrderStatus{" +
+                "status=" + status +
+                '}';
     }
 
 }

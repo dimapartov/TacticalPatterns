@@ -3,10 +3,6 @@ package org.example.logitrack.Domain;
 import java.util.Objects;
 
 
-/**
- * Сущность «Вложение».
- * Вложение может быть добавлено только вместе с новым сообщением.
- */
 public class Attachment {
 
     private final String id;
@@ -14,7 +10,7 @@ public class Attachment {
 
     public Attachment(String id, String fileName) {
         if (id == null || fileName == null || id.isEmpty() || fileName.isEmpty()) {
-            throw new IllegalArgumentException("Attachment id and fileName cannot be null or empty");
+            throw new IllegalArgumentException("Вложение не найдено");
         }
         this.id = id;
         this.fileName = fileName;
@@ -43,7 +39,10 @@ public class Attachment {
 
     @Override
     public String toString() {
-        return "Attachment{id='" + id + "', fileName='" + fileName + "'}";
+        return "Attachment{" +
+                "id='" + id + '\'' +
+                ", fileName='" + fileName + '\'' +
+                '}';
     }
 
 }

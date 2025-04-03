@@ -8,16 +8,13 @@ import java.util.List;
 import java.util.Map;
 
 
-/**
- * In-memory реализация репозитория для агрегатов TransportationOrder.
- */
 public class TransportationOrderRepository {
 
     private final Map<String, TransportationOrder> storage = new HashMap<>();
 
     public void save(TransportationOrder order) {
         storage.put(order.getId(), order);
-        System.out.println("Order saved: " + order.getId());
+        System.out.println("Заявка сохранена: " + order.getId());
     }
 
     public TransportationOrder findById(String id) {

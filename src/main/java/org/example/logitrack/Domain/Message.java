@@ -6,12 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-/**
- * Сущность «Сообщение» в заявке.
- * Содержит информацию о содержимом, отправителе, вложениях и статусе подтверждения.
- * Инвариант: подтверждение сообщения доступно только противоположной стороне.
- * Вложения добавляются только на этапе создания сообщения.
- */
+
 public class Message {
 
     private final String id;
@@ -20,31 +15,23 @@ public class Message {
     private final List<Attachment> attachments;
     private boolean isConfirmed;
 
-    /**
-     * Создание сообщения с вложениями.
-     *
-     * @param id          Идентификатор сообщения.
-     * @param sender      Роль отправителя.
-     * @param content     Содержимое сообщения.
-     * @param attachments Список вложений (если их нет, передать пустой список).
-     */
+
     public Message(String id, UserRole sender, String content, List<Attachment> attachments) {
         if (id == null || id.isEmpty()) {
-            throw new IllegalArgumentException("Message id cannot be null or empty");
+            throw new IllegalArgumentException("Сообщение не найдено");
         }
         if (sender == null) {
-            throw new IllegalArgumentException("Sender cannot be null");
+            throw new IllegalArgumentException("Отправитель не найден");
         }
         if (content == null || content.isEmpty()) {
-            throw new IllegalArgumentException("Content cannot be null or empty");
+            throw new IllegalArgumentException("Сообщение не может быть пустым");
         }
         if (attachments == null) {
-            throw new IllegalArgumentException("Attachments list cannot be null (can be empty if no attachments)");
+            throw new IllegalArgumentException("Вложения не найдены");
         }
         this.id = id;
         this.sender = sender;
         this.content = content;
-        // Инвариант: вложения добавляются только при создании сообщения.
         this.attachments = new ArrayList<>(attachments);
         this.isConfirmed = false;
     }
@@ -69,24 +56,19 @@ public class Message {
         return isConfirmed;
     }
 
-    /**
-     * Подтверждение сообщения. Метод проверяет, что подтверждение происходит
-     * только от противоположной стороны (отличной от отправителя).
-     *
-     * @param confirmer Роль, пытающаяся подтвердить сообщение.
-     */
+
     public void confirmMessage(UserRole confirmer) {
         if (confirmer == null) {
-            throw new IllegalArgumentException("Confirmer role cannot be null");
+            throw new IllegalArgumentException("Роль не найдена");
         }
         if (confirmer != sender.getOpposite()) {
-            throw new IllegalStateException("Only the opposite party can confirm the message");
+            throw new IllegalStateException("Только другая сторона может подтвердить сообщение");
         }
         if (isConfirmed) {
-            throw new IllegalStateException("Message is already confirmed");
+            throw new IllegalStateException("Сообщение уже подтверждено");
         }
         this.isConfirmed = true;
-        System.out.println("Message " + id + " confirmed by " + confirmer);
+        System.out.println("Сообщение " + id + " подтверждено " + confirmer);
     }
 
     @Override
@@ -104,7 +86,13 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{id='" + id + "', sender=" + sender + ", content='" + content + "', attachments=" + attachments + ", confirmed=" + isConfirmed + "}";
+        return "Message{" +
+                "id='" + id + '\'' +
+                ", sender=" + sender +
+                ", content='" + content + '\'' +
+                ", attachments=" + attachments +
+                ", isConfirmed=" + isConfirmed +
+                '}';
     }
 
 }

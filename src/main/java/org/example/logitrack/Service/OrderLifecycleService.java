@@ -5,10 +5,6 @@ import org.example.logitrack.Domain.TransportationOrder;
 import org.example.logitrack.Repository.TransportationOrderRepository;
 
 
-/**
- * Доменный сервис для управления жизненным циклом заявки.
- * Реализует операции создания, изменения статуса, закрытия и переоткрытия заявки.
- */
 public class OrderLifecycleService {
 
     private final TransportationOrderRepository repository;
@@ -17,62 +13,50 @@ public class OrderLifecycleService {
         this.repository = repository;
     }
 
-    /**
-     * Создание новой заявки с заданным маршрутом доставки.
-     */
+
     public TransportationOrder createOrder(DeliveryRoute deliveryRoute) {
         TransportationOrder order = new TransportationOrder(deliveryRoute);
         repository.save(order);
-        System.out.println("Order created with id: " + order.getId());
+        System.out.println("Заявка создана: " + order.getId());
         return order;
     }
 
-    /**
-     * Изменение статуса заявки.
-     * Если передан статус CLOSED или ACTIVE, заявка закрывается или переоткрывается соответственно.
-     */
+
     public void changeStatus(TransportationOrder order, String newStatus) {
         if (order == null) {
-            throw new IllegalArgumentException("Order cannot be null");
+            throw new IllegalArgumentException("Заявка не найдена");
         }
         if ("CLOSED".equalsIgnoreCase(newStatus)) {
             order.close();
-            System.out.println("Order " + order.getId() + " manually closed.");
+            System.out.println("Заявка " + order.getId() + " закрыта");
         } else if ("ACTIVE".equalsIgnoreCase(newStatus)) {
             try {
                 order.reopen();
-                System.out.println("Order " + order.getId() + " reopened.");
+                System.out.println("Заявка " + order.getId() + " возобновлена");
             } catch (IllegalStateException e) {
-                System.out.println("Order " + order.getId() + " is already active.");
+                System.out.println("Заявка " + order.getId() + " уже активна");
             }
         } else {
-            throw new IllegalArgumentException("Unknown status: " + newStatus);
+            throw new IllegalArgumentException("Неизвестная ошибка: " + newStatus);
         }
         repository.save(order);
     }
 
-    /**
-     * Ручное закрытие заявки.
-     */
+
     public void closeOrder(TransportationOrder order) {
         order.close();
         repository.save(order);
-        System.out.println("Order " + order.getId() + " closed.");
+        System.out.println("Заявка " + order.getId() + " закрыта");
     }
 
-    /**
-     * Ручное переоткрытие заявки.
-     */
+
     public void reopenOrder(TransportationOrder order) {
         order.reopen();
         repository.save(order);
-        System.out.println("Order " + order.getId() + " reopened.");
+        System.out.println("Заявка " + order.getId() + " возобновлена");
     }
 
-    /**
-     * Проверка неактивности заявки и автоматическое закрытие,
-     * если с момента последней активности прошло более 10 минут.
-     */
+
     public void checkAndCloseInactiveOrder(TransportationOrder order) {
         order.checkAndCloseIfInactive();
         repository.save(order);

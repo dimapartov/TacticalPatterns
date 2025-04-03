@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Демонстрация работы системы LogiTrack.
- */
 public class Main {
 /*
     // Демонстрация первой части
@@ -70,53 +67,47 @@ public class Main {
 
     // Демонстрация второй части
     public static void main(String[] args) throws InterruptedException {
-        // Создаем in-memory репозиторий и доменный сервис для управления заявками
         TransportationOrderRepository repository = new TransportationOrderRepository();
         OrderLifecycleService lifecycleService = new OrderLifecycleService(repository);
         FraudDetectionService fraudService = new FraudDetectionService();
 
-        // Создаем новую заявку с маршрутом доставки
-        DeliveryRoute route = new DeliveryRoute("New York", "Los Angeles");
+        DeliveryRoute route = new DeliveryRoute("Центральный округ", "Южный округ");
         TransportationOrder order = lifecycleService.createOrder(route);
 
-        // Создаем сообщение от клиента с вложением (вложение добавляется только на этапе создания сообщения)
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(new Attachment("att-001", "invoice.pdf"));
-        Message message1 = new Message("msg-001", UserRole.CLIENT, "Please confirm the order details.", attachments);
+        attachments.add(new Attachment("photo1", "накладная.pdf"));
+        Message message1 = new Message("message-1", UserRole.CLIENT, "Добрый день! Отправляю фото груза и накладную", attachments);
         order.addMessage(message1);
 
-        // Попытка подтвердить сообщение от той же стороны (должна вызвать ошибку)
+        // Демонстрация ошибки: сообщение пытается подтвердить та же сторона
         try {
             message1.confirmMessage(UserRole.CLIENT);
         } catch (Exception e) {
-            System.out.println("Error during confirmation: " + e.getMessage());
+            System.out.println("Ошибка подтверждения: " + e.getMessage());
         }
 
-        // Правильное подтверждение сообщения противоположной стороной
         try {
             message1.confirmMessage(UserRole.PROVIDER);
         } catch (Exception e) {
             System.out.println("Error during confirmation: " + e.getMessage());
         }
 
-        // Симуляция неактивности: для демонстрации автоматического закрытия заявки
-        // В реальном приложении ожидание составит 10 минут, здесь используем Thread.sleep и/или корректируем время активности.
-        System.out.println("Simulating inactivity for automatic order closure...");
-        Thread.sleep(1000); // Используем 1 секунду для демонстрации
+        System.out.println("Демонстрация неактивности заявки:");
+        Thread.sleep(1000);
         order.checkAndCloseIfInactive();
-        System.out.println("Order status after inactivity check: " + order.getOrderStatus());
+        System.out.println("Статус заявки после неактивности: " + order.getOrderStatus());
 
-        // Выполняем проверку на мошенничество
+
         fraudService.checkForFraud(order);
 
-        // Меняем статус заявки вручную через OrderLifecycleService (переоткрытие заявки)
+
         lifecycleService.changeStatus(order, "ACTIVE");
-        System.out.println("Order status after manual reopen: " + order.getOrderStatus());
+        System.out.println("Пользователь продлил заявку: " + order.getOrderStatus());
 
         // Добавляем дополнительные сообщения для эмуляции подозрительной активности
-        Message message2 = new Message("msg-002", UserRole.CLIENT, "Additional message 1", new ArrayList<>());
-        Message message3 = new Message("msg-003", UserRole.CLIENT, "Additional message 2", new ArrayList<>());
-        Message message4 = new Message("msg-004", UserRole.CLIENT, "Additional message 3", new ArrayList<>());
+        Message message2 = new Message("message-2", UserRole.CLIENT, "Additional message 1", new ArrayList<>());
+        Message message3 = new Message("message-3", UserRole.CLIENT, "Additional message 2", new ArrayList<>());
+        Message message4 = new Message("message-4", UserRole.CLIENT, "Additional message 3", new ArrayList<>());
         order.addMessage(message2);
         order.addMessage(message3);
         order.addMessage(message4);
