@@ -32,11 +32,6 @@ public final class DeliveryRoute {
         return origin.equals(that.origin) && destination.equals(that.destination);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(origin, destination);
-    }
-
 
     @Override
     public String toString() {

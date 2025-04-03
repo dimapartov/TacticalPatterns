@@ -32,10 +32,6 @@ public class Attachment {
         return id.equals(that.id) && fileName.equals(that.fileName);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fileName);
-    }
 
     @Override
     public String toString() {

@@ -68,7 +68,7 @@ public class TransportationOrder {
 
 
     public void checkAndCloseIfInactive() {
-        if (orderStatus.isActive() && Duration.between(lastActivityTime, LocalDateTime.now()).toMinutes() >= 10) {
+        if (orderStatus.isActive() && Duration.between(lastActivityTime, LocalDateTime.now()).toSeconds() >= 1) {
             close();
             System.out.println("Заявка " + id + " неактивна. Автоматическое закрытие заявки");
         }

@@ -34,10 +34,6 @@ public final class OrderStatus {
         return status == that.status;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(status);
-    }
 
 
     @Override

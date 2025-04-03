@@ -79,10 +79,6 @@ public class Message {
         return id.equals(message.id);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
     @Override
     public String toString() {
