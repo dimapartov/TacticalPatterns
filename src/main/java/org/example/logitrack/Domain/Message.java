@@ -49,7 +49,7 @@ public class Message {
     }
 
     public List<Attachment> getAttachments() {
-        return Collections.unmodifiableList(attachments);
+        return attachments;
     }
 
     public boolean isConfirmed() {

@@ -75,22 +75,14 @@ public class Main {
         TransportationOrder order = lifecycleService.createOrder(route);
 
         List<Attachment> attachments = new ArrayList<>();
-        attachments.add(new Attachment("photo1", "накладная.pdf"));
+        attachments.add(new Attachment("attachment-1", "накладная.pdf"));
         Message message1 = new Message("message-1", UserRole.CLIENT, "Добрый день! Отправляю фото груза и накладную", attachments);
         order.addMessage(message1);
 
         // Демонстрация ошибки: сообщение пытается подтвердить та же сторона
-        try {
-            message1.confirmMessage(UserRole.CLIENT);
-        } catch (Exception e) {
-            System.out.println("Ошибка подтверждения: " + e.getMessage());
-        }
 
-        try {
-            message1.confirmMessage(UserRole.PROVIDER);
-        } catch (Exception e) {
-            System.out.println("Error during confirmation: " + e.getMessage());
-        }
+//        message1.confirmMessage(UserRole.CLIENT);
+        message1.confirmMessage(UserRole.PROVIDER);
 
         System.out.println("Демонстрация неактивности заявки:");
         Thread.sleep(1000);
