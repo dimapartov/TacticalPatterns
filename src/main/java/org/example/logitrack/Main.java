@@ -94,17 +94,17 @@ public class Main {
 
         System.out.println("Демонстрация неактивности заявки:");
         Thread.sleep(1000);
-        order.checkAndCloseIfInactive();
+        lifecycleService.checkAndCloseInactiveOrder(order);
         System.out.println("Статус заявки после неактивности: " + order.getOrderStatus());
 
 
         fraudService.checkForFraud(order);
 
 
-        lifecycleService.changeStatus(order, "ACTIVE");
+        lifecycleService.reopenOrder(order);
         System.out.println("Пользователь продлил заявку: " + order.getOrderStatus());
 
-        // Добавляем дополнительные сообщения для эмуляции подозрительной активности
+        // Для обнаружения мошенничества
         Message message2 = new Message("message-2", UserRole.CLIENT, "Additional message 1", new ArrayList<>());
         Message message3 = new Message("message-3", UserRole.CLIENT, "Additional message 2", new ArrayList<>());
         Message message4 = new Message("message-4", UserRole.CLIENT, "Additional message 3", new ArrayList<>());
@@ -112,7 +112,6 @@ public class Main {
         order.addMessage(message3);
         order.addMessage(message4);
 
-        // Повторная проверка на мошенничество после добавления сообщений
         fraudService.checkForFraud(order);
     }
 

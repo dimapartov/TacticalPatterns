@@ -71,13 +71,6 @@ public class Message {
         System.out.println("Сообщение " + id + " подтверждено " + confirmer);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Message)) return false;
-        Message message = (Message) o;
-        return id.equals(message.id);
-    }
 
 
     @Override

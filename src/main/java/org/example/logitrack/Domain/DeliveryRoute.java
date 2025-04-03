@@ -24,14 +24,6 @@ public final class DeliveryRoute {
         return destination;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DeliveryRoute)) return false;
-        DeliveryRoute that = (DeliveryRoute) o;
-        return origin.equals(that.origin) && destination.equals(that.destination);
-    }
-
 
     @Override
     public String toString() {

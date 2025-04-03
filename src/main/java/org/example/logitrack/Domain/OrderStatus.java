@@ -26,15 +26,6 @@ public final class OrderStatus {
         return status == Status.ACTIVE;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof OrderStatus)) return false;
-        OrderStatus that = (OrderStatus) o;
-        return status == that.status;
-    }
-
-
 
     @Override
     public String toString() {

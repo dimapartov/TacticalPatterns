@@ -24,14 +24,6 @@ public class Attachment {
         return fileName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Attachment)) return false;
-        Attachment that = (Attachment) o;
-        return id.equals(that.id) && fileName.equals(that.fileName);
-    }
-
 
     @Override
     public String toString() {
