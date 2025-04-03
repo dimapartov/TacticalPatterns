@@ -3,6 +3,7 @@ package org.example.logitrack.Service;
 import org.example.logitrack.Domain.Message;
 import org.example.logitrack.Domain.TransportationOrder;
 import org.example.logitrack.Domain.UserRole;
+import org.example.logitrack.Repository.TransportationOrderRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,8 @@ import java.util.Map;
 
 public class FraudDetectionService {
 
+    TransportationOrderRepository repository = new TransportationOrderRepository();
+    OrderLifecycleService lifecycleService = new OrderLifecycleService(repository);
 
     public boolean checkForFraud(TransportationOrder order) {
         Map<UserRole, Integer> messageCount = new HashMap<>();
@@ -22,6 +25,7 @@ public class FraudDetectionService {
         for (Map.Entry<UserRole, Integer> entry : messageCount.entrySet()) {
             if (entry.getValue() > 3) {
                 System.out.println("Обнаружено мошенничество: более трех сообщений от " + entry.getKey() + " в заявке " + order.getId());
+                lifecycleService.closeOrder(order);
                 return true;
             }
         }

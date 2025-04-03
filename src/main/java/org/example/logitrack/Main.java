@@ -105,6 +105,7 @@ public class Main {
         order.addMessage(message4);
 
         fraudService.checkForFraud(order);
+        System.out.println(order);
     }
 
 }
