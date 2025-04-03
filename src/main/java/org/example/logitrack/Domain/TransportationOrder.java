@@ -41,7 +41,7 @@ public class TransportationOrder {
     }
 
     public List<Message> getMessages() {
-        return Collections.unmodifiableList(messages);
+        return messages;
     }
 
     public LocalDateTime getLastActivityTime() {
